@@ -2,7 +2,9 @@ import mongoose from 'mongoose';
 
 const UsuarioSchema = mongoose.Schema({
   email: {
-    type: String
+    type: String,
+    required: true,
+    match: [/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i, 'Introduzca un email valido']
   },
   password: {
     type: String
@@ -17,6 +19,6 @@ const UsuarioSchema = mongoose.Schema({
   }
 });
 
-const UsuarioModel = mongoose.model('Usuario', UsuarioSchema, 'Usuario');
+const UsuarioModel = mongoose.model('usuario', UsuarioSchema, 'usuario');
 
 export default UsuarioModel;

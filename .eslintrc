@@ -12,5 +12,16 @@
   },
   "rules": {
     "comma-dangle": 0,
+    "linebreak-style": "off",
+    "prefer-template": "off",
+    "no-useless-escape": "off",
+    "object-shorthand": "off",
+    "no-underscore-dangle":"off",
+    "no-param-reassign": "off",
+    "no-console": "off",
+    "eqeqeq": "off",
+    "quote-props": "off",
+    "no-else-return":"off",
+    "max-len":"off"
   }
 }

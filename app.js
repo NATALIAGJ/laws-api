@@ -3,7 +3,6 @@ import cookieParser from 'cookie-parser';
 import Debug from 'debug';
 import express from 'express';
 import logger from 'morgan';
-import sassMiddleware from 'node-sass-middleware';
 import path from 'path';
 import mongoose from 'mongoose';
 // import favicon from 'serve-favicon';
@@ -21,39 +20,38 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
+app.use(bodyParser.json({ limit: '1000mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '1000mb' }));
+
 app.use(cookieParser());
-app.use(sassMiddleware({
-  src: path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public'),
-  indentedSyntax: true,
-  sourceMap: true
-}));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
+app.use('/api', index);
 
-// catch 404 and forward to error handler
-app.use((req, res, next) => {
-  const err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-
-/* Mongo */
 const dbURL = 'mongodb://localhost:27017/laws';
 // mongo
-mongoose.connect(dbURL, { useNewUrlParser: true });
+mongoose.connect(dbURL);
 const conn = mongoose.connection;
 conn.on('error', (err) => {
   console.error('There was a db connection error');
   return console.error(err.message);
 });
 conn.once('connected', () => {
-  return console.log('Successfully connected to ', dbURL);
+  console.log('Successfully connected to ', dbURL);
+  return dbURL;
 });
 conn.once('disconnected', () => {
-  return console.error('Successfully disconnected from ', dbURL);
+  console.error('Successfully disconnected from ', dbURL);
+  return dbURL;
+});
+
+
+// catch 404 and forward to error handler
+app.use((req, res, next) => {
+  const err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
 // error handler

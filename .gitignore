@@ -1,1 +1,6 @@
-node_modules
+# Created by .ignore support plugin (hsz.mobi)
+.idea/
+package-lock.json
+/npm-debug.log
+/node_modules/
+debug.log

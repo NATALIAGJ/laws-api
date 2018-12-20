@@ -12,9 +12,11 @@ const signin = async (req, res) => {
     const usuario = await Usuario.findOne({ email: req.body.email });
     if (usuario) {
       if (usuario.password === req.body.password) {
-        return res.json({ success: true });  
+        usuario.actualizado = true;
+        await usuario.save();
+        return res.json({ success: true });
       } else {
-        return res.json({ success: false, msj: 'Credenciales Inválidas' });      
+        return res.json({ success: false, msj: 'Credenciales Inválidas' });
       }
     } else {
       return res.json({ success: false, msj: 'Credenciales Inválidas' });
@@ -35,7 +37,7 @@ const signup = async (req, res) => {
   try {
     const nuevoUsuario = new Usuario(req.body);
     await nuevoUsuario.save();
-    return res.json({ success: true });    
+    return res.json({ success: true, msj: 'Usuario creado' });
   } catch (err) {
     throw new Error(err);
   }
