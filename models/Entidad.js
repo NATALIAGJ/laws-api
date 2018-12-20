@@ -14,6 +14,6 @@ const EntidadSchema = mongoose.Schema({
   }
 });
 
-const EntidadModel = mongoose.model('entidads', EntidadSchema, 'entidads');
+const EntidadModel = mongoose.model('entidad', EntidadSchema, 'entidad');
 
 export default EntidadModel;
