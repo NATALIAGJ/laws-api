@@ -8,15 +8,17 @@ const NormasSchema = mongoose.Schema({
     type: Date
   },
   entidadEmision: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'entidad'
+    type: String
+    /* type: mongoose.Schema.Types.ObjectId,
+    ref: 'entidad' */
   },
   codigoNorma: {
     type: Number
   },
   ciudad: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'ciudad'
+    type: String
+    /* type: mongoose.Schema.Types.ObjectId,
+    ref: 'ciudad' */
   },
   usuario: {
     type: mongoose.Schema.Types.ObjectId,
