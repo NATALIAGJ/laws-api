@@ -29,7 +29,7 @@ const create = async (req, res) => {
     const nuevaNorma = new Norma(req.body);
     nuevaNorma.usuario = global.idUsuario;
     await nuevaNorma.save();
-    return res.json({ success: true });
+    return res.json({ success: true, msj: 'Norma Creada' });
   } catch (err) {
     throw new Error(err);
   }
@@ -44,7 +44,16 @@ const create = async (req, res) => {
 
 const detail = async (req, res) => {
   try {
-    const norma = await Norma.findById(req.params.id);
+    const norma = await Norma.findById(req.params.id)
+      .lean()
+      .populate('entidadEmision ciudad')
+      .populate({
+        path: 'usuario',
+        select: '-password',
+        options: {
+          lean: true
+        }
+      });
     return res.json({ success: true, norma: norma });
   } catch (err) {
     throw new Error(err);
@@ -60,7 +69,7 @@ const detail = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    const norma = await Norma.findByIdAndUpdate(req.params.id, req.body);
+    await Norma.findByIdAndUpdate(req.params.id, req.body);
     return res.json({ success: true });
   } catch (err) {
     throw new Error(err);

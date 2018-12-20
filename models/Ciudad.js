@@ -11,6 +11,6 @@ const CiudadSchema = mongoose.Schema({
   }
 });
 
-const CiudadModel = mongoose.model('ciudad', CiudadSchema, 'ciudad');
+const CiudadModel = mongoose.model('ciudads', CiudadSchema, 'ciudads');
 
 export default CiudadModel;
